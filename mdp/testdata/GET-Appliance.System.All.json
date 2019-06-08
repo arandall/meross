@@ -1,0 +1,12 @@
+{
+  "header": {
+    "from": "http://10.10.10.1/config",
+    "messageId": "775835a0b610ed2436090b2b4e929fd4",
+    "method": "GET",
+    "namespace": "Appliance.System.All",
+    "payloadVersion": 1,
+    "sign": "cc05557a79fbfd90cb5a4f08be50df30",
+    "timestamp": 1557596606
+  },
+  "payload": {}
+}
