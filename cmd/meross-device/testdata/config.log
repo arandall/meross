@@ -1,0 +1,38 @@
+# meross-device config
+Usage of meross-device config:
+  -key string
+    	key used for signing (optional for some commands)
+  -mqtt-host string
+    	MQTT host
+  -mqtt-port int
+    	MQTT port (default 8883)
+  -quiet
+    	don't show username/password configured on device
+  -second-mqtt-host string
+    	Secondary MQTT host (optional)
+  -second-mqtt-port int
+    	Secondary MQTT port (optional) (default 8883)
+  -url string
+    	url of device configuration endpoint
+  -user-id string
+    	user-id
+ERROR: -url flag must be provided
+
+# meross-device config -url URL
+ERROR: -user-id flag is required
+
+# meross-device config -url URL -user-id 1234 -key testkey
+ERROR: -host flag is required
+
+# meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost <testdata/responses/SETACK-empty+GETACK-system-all.json
+If using auth in your MQTT server use these credentials
+Username: 34:29:8f:ff:ff:ff
+Password: 5ac868a81f2f21b4a87f7d2bb3467cb5
+
+# meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost -mqtt-port 123 <testdata/responses/SETACK-empty+GETACK-system-all.json
+If using auth in your MQTT server use these credentials
+Username: 34:29:8f:ff:ff:ff
+Password: 5ac868a81f2f21b4a87f7d2bb3467cb5
+
+# meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost -quiet <testdata/responses/SETACK-empty+GETACK-system-all.json
+

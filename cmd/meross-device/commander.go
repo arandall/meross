@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"sort"
 	"strings"
 )
 
@@ -24,6 +25,7 @@ func newCommander() *commander {
 		cmds: map[string]command{
 			"scan":   &scanWifi{},
 			"system": &system{},
+			"config": &configure{},
 		},
 	}
 }
@@ -48,7 +50,7 @@ func (c *commander) Run(args ...string) error {
 	}
 
 	// Configure FlagSet for command
-	fs := flag.NewFlagSet(strings.Join(args[0:2], " "), flag.ExitOnError)
+	fs := flag.NewFlagSet(strings.Join(args[0:2], " "), flag.ContinueOnError)
 	fs.SetOutput(out)
 	c.flagSet(fs)
 	cmd.FlagSet(fs)
@@ -72,7 +74,15 @@ func (c *commander) Usage() {
 	fmt.Fprint(out, "Usage of meross-device:\n")
 	fmt.Fprint(out, "\tmeross-device cmd [opts]\n\n")
 	fmt.Fprint(out, "available commands\n")
+
+	var commands []string
 	for cmd := range c.cmds {
+		commands = append(commands, cmd)
+	}
+	sort.Strings(commands)
+
+	// To perform the opertion you want
+	for _, cmd := range commands {
 		fmt.Fprintf(out, "\t%s\n", cmd)
 	}
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -18,9 +19,14 @@ import (
 
 var updateFlag = flag.Bool("update", false, "update test data")
 
-func newTestServer(code int, r io.Reader) *httptest.Server {
+func newTestServer(r io.Reader) *httptest.Server {
+	dec := json.NewDecoder(r)
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		if _, err := io.Copy(w, r); err != nil {
+		var d json.RawMessage
+		if err := dec.Decode(&d); err != nil {
+			w.WriteHeader(http.StatusTooManyRequests)
+		}
+		if _, err := w.Write(d); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
@@ -56,7 +62,7 @@ func runFile(f string) error {
 	runFunc := func(inFile io.Reader, args []string) error {
 		var server *httptest.Server
 		if inFile != nil {
-			server = newTestServer(http.StatusOK, inFile)
+			server = newTestServer(inFile)
 			defer server.Close()
 			args = scriptrunner.ReplaceArg(args, "URL", server.URL)
 		}

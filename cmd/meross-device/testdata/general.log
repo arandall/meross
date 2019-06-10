@@ -3,6 +3,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	config
 	scan
 	system
 ERROR: missing command
@@ -12,6 +13,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	config
 	scan
 	system
 ERROR: Command stupid not found
@@ -21,6 +23,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	config
 	scan
 	system
 ERROR: Command -hello not found
@@ -30,6 +33,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	config
 	scan
 	system
 
