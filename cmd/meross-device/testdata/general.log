@@ -4,6 +4,7 @@ Usage of meross-device:
 
 available commands
 	scan
+	system
 ERROR: missing command
 
 # meross-device stupid command
@@ -12,6 +13,7 @@ Usage of meross-device:
 
 available commands
 	scan
+	system
 ERROR: Command stupid not found
 
 # meross-device -hello
@@ -20,6 +22,7 @@ Usage of meross-device:
 
 available commands
 	scan
+	system
 ERROR: Command -hello not found
 
 # meross-device help
@@ -28,4 +31,5 @@ Usage of meross-device:
 
 available commands
 	scan
+	system
 

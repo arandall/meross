@@ -1,0 +1,67 @@
+# meross-device system
+Usage of meross-device system:
+  -key string
+    	key used for signing (optional for some commands)
+  -raw
+    	show raw json
+  -url string
+    	url of device configuration endpoint
+ERROR: -url flag must be provided
+
+# meross-device system -url URL <testdata/responses/ERROR-sign-error.json
+// system gets will fail if device is provisioned with key and it is not provided.
+ERROR: 5001: sign error
+
+# meross-device system -url URL -raw <testdata/responses/GETACK-system-all.json
+{
+  "all": {
+    "system": {
+      "hardware": {
+        "type": "mss310",
+        "subType": "us",
+        "version": "1.0.0",
+        "chipType": "MT7688",
+        "uuid": "11111111111111111111111111111111",
+        "macAddress": "34:29:8f:ff:ff:ff"
+      },
+      "firmware": {
+        "version": "1.1.13",
+        "compileTime": "2018-06-01 09:56:24",
+        "wifiMac": "ff:ff:ff:ff:ff:ff",
+        "innerIp": "10.0.0.21",
+        "server": "10.0.0.1",
+        "port": 8883,
+        "secondServer": "",
+        "secondPort": 0,
+        "userId": 12345
+      },
+      "time": {
+        "timestamp": 1560144444,
+        "timezone": "",
+        "timeRule": []
+      },
+      "online": {
+        "status": 1
+      }
+    },
+    "control": {
+      "toggle": {
+        "onoff": 1,
+        "lmTime": 1560124804
+      },
+      "trigger": [],
+      "timer": []
+    }
+  }
+}
+
+# meross-device system -url URL <testdata/responses/GETACK-system-all.json
+UUID: 11111111111111111111111111111111
+Type: mss310-us (v1.0.0) - MT7688
+MAC: 34:29:8f:ff:ff:ff
+Firmware: v1.1.13
+MQTT:
+	Primary: mqtts://10.0.0.1:8883
+Device time: Mon, 10 Jun 2019 15:27:24 AEST
+Toggle Status: true (last changed: Mon, 10 Jun 2019 10:00:04 AEST)
+

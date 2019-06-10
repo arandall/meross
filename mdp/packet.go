@@ -46,23 +46,23 @@ func (m *Method) UnmarshalText(b []byte) (err error) {
 	return err
 }
 
-type Time struct {
+type Unixtime struct {
 	time.Time
 }
 
-func (t *Time) String() string {
+func (t *Unixtime) String() string {
 	return strconv.FormatInt(t.Unix(), 10)
 }
 
-func (t *Time) MarshalJSON() ([]byte, error) {
+func (t *Unixtime) MarshalJSON() ([]byte, error) {
 	return []byte(t.String()), nil
 }
-func (t *Time) UnmarshalJSON(b []byte) error {
+func (t *Unixtime) UnmarshalJSON(b []byte) error {
 	i, err := strconv.ParseInt(string(b), 10, 64)
 	if err != nil {
 		return err
 	}
-	*t = Time{time.Unix(i, 0)}
+	*t = Unixtime{time.Unix(i, 0)}
 	return nil
 }
 
@@ -71,13 +71,13 @@ type Header struct {
 	// Used to identify MQTT response topic if response required
 	From string `json:"from,omitempty"`
 	// MessageID is used to identify a request/response pair.
-	MessageID      string `json:"messageId,omitempty"`
-	Method         Method `json:"method,omitempty"`
-	Namespace      string `json:"namespace,omitempty"`
-	PayloadVersion int    `json:"payloadVersion,omitempty"`
-	Signature      string `json:"sign,omitempty"`
-	Timestamp      Time   `json:"timestamp,omitempty"`
-	TimestampMS      int64   `json:"timestampMs,omitempty"`
+	MessageID      string   `json:"messageId,omitempty"`
+	Method         Method   `json:"method,omitempty"`
+	Namespace      string   `json:"namespace,omitempty"`
+	PayloadVersion int      `json:"payloadVersion,omitempty"`
+	Signature      string   `json:"sign,omitempty"`
+	Timestamp      Unixtime `json:"timestamp,omitempty"`
+	TimestampMS    int64    `json:"timestampMs,omitempty"`
 }
 
 // Packet represents the structure of a request/response
@@ -93,7 +93,7 @@ func NewPacket(ns string, m Method, p json.RawMessage) *Packet {
 			Method:         m,
 			Namespace:      ns,
 			PayloadVersion: 1,
-			Timestamp:      Time{time.Now()},
+			Timestamp:      Unixtime{time.Now()},
 		},
 		Payload: p,
 	}
