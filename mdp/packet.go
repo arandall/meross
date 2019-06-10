@@ -3,7 +3,6 @@ package mdp
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"strconv"
 	"time"
 )
@@ -102,13 +101,22 @@ func NewPacket(ns string, m Method, p json.RawMessage) *Packet {
 
 // Sign signs the packet using the key provided and returns a signature
 func (p *Packet) Sign(k string) {
-	log.Print(p.Header.MessageID, k, p.Header.Timestamp.String())
 	p.Header.Signature = GenerateSignature(p.Header.MessageID, k, p.Header.Timestamp.String())
 }
 
 // SignatureValid checks that key was used to sign the packet.
 func (p *Packet) SignatureValid(k string) bool {
 	return p.Header.Signature == Sign(k, p)
+}
+
+func (p *Packet) Unmarshal(v interface{}) error {
+	// If Method is an error then return it as an error.
+	if p.Header.Method == Method_ERROR {
+		var err Error
+		json.Unmarshal(p.Payload, &err)
+		return err
+	}
+	return json.Unmarshal(p.Payload, v)
 }
 
 // Sign signs the packet using the key provided and returns a signature

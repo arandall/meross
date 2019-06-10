@@ -1,0 +1,53 @@
+# meross-device scan
+Usage of meross-device scan:
+  -key string
+    	key used for signing (optional for some commands)
+  -raw
+    	show raw json
+  -url string
+    	url of device configuration endpoint
+ERROR: -url flag must be provided
+
+# meross-device scan -url URL <testdata/responses/ERROR-sign-error.json
+// wifi scans will fail if device is provisioned with key and it is not provided.
+ERROR: 5001: sign error
+
+# meross-device scan -url URL -raw <testdata/responses/ERROR-sign-error.json
+{
+  "error": {
+    "code": 5001,
+    "detail": "sign error"
+  }
+}
+
+# meross-device scan -url URL <testdata/responses/GETACK-wifi-list.json
+// a scan of a device that is not yet configured doesn't require a key.
+test SSID (100%)
+BSSID: 2c-6e-a4-55-c6-47
+
+test SSID2 (20%)
+BSSID: 4d-23-0e-3c-a2-22
+
+
+# meross-device scan -url URL -raw <testdata/responses/GETACK-wifi-list.json
+{
+  "wifiList": [
+    {
+      "ssid": "dGVzdCBTU0lE",
+      "bssid": "2c-6e-a4-55-c6-47",
+      "signal": 100,
+      "channel": 3,
+      "encryption": 6,
+      "cipher": 3
+    },
+    {
+      "ssid": "dGVzdCBTU0lEMg==",
+      "bssid": "4d-23-0e-3c-a2-22",
+      "signal": 20,
+      "channel": 3,
+      "encryption": 6,
+      "cipher": 3
+    }
+  ]
+}
+

@@ -1,0 +1,18 @@
+{
+  "header": {
+    "from": "/appliance/abc/publish",
+    "messageId": "1ae3875088b102ceb771329ed0eb3ac4",
+    "method": "ERROR",
+    "namespace": "Appliance.System.All",
+    "payloadVersion": 1,
+    "sign": "34205b55d1212e9a6be03ae3a4faa55f",
+    "timestamp": 40,
+    "timestampMs": 900
+  },
+  "payload": {
+    "error": {
+      "code": 5001,
+      "detail": "sign error"
+    }
+  }
+}

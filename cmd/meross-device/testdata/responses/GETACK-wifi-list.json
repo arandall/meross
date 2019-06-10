@@ -1,0 +1,32 @@
+{
+  "header": {
+    "from": "/appliance/11111111111111111111111111111111/publish",
+    "messageId": "b915b0362e09cb245ffc942c959201f2",
+    "method": "GETACK",
+    "namespace": "Appliance.Config.WifiList",
+    "payloadVersion": 1,
+    "sign": "b348c8e25bfae0eeac4476b5c7508916",
+    "timestamp": 1560142357,
+    "timestampMs": 270
+  },
+  "payload": {
+    "wifiList": [
+      {
+        "ssid": "dGVzdCBTU0lE",
+        "bssid": "2c-6e-a4-55-c6-47",
+        "signal": 100,
+        "channel": 3,
+        "encryption": 6,
+        "cipher": 3
+      },
+      {
+        "ssid": "dGVzdCBTU0lEMg==",
+        "bssid": "4d-23-0e-3c-a2-22",
+        "signal": 20,
+        "channel": 3,
+        "encryption": 6,
+        "cipher": 3
+      }
+    ]
+  }
+}

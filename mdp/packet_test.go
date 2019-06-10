@@ -1,49 +1,19 @@
 package mdp
 
 import (
-	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"testing"
+
+	"github.com/arandall/meross/testutils/diff"
 )
 
-type diffError struct {
-	err error
-	buf bytes.Buffer
-}
-
-func (e *diffError) Error() string {
-	return e.buf.String()
-}
-
-func diff(d []byte, file string) error {
-	cmd := exec.Command("diff", "-u", "--from-file="+file, "-")
-	cmd.Stdin = bytes.NewReader(d)
-
-	var out bytes.Buffer
-	cmd.Stdout = &out
-	cmd.Stderr = &out
-
-	if err := cmd.Run(); err != nil {
-		return &diffError{err, out}
-	}
-	return nil
-}
-
-func isDiffAvailable() bool {
-	cmd := exec.Command("diff", "--help")
-	if err := cmd.Run(); err != nil {
-		return false
-	}
-	return true
-}
-
 // TestParse checks that the Marshal and Unmarshal functions produce the same result.
+// TODO(arandall): test payload marshal/unmarshal.
 func TestPacket_EncodingDecoding(t *testing.T) {
-	if !isDiffAvailable() {
+	if !diff.IsAvailable() {
 		t.Skip("skipped: require diff command")
 	}
 	root := "testdata"
@@ -71,7 +41,7 @@ func TestPacket_EncodingDecoding(t *testing.T) {
 			if err != nil {
 				t.Errorf("marshal: %v", err)
 			}
-			if err := diff(json, path); err != nil {
+			if err := diff.Run(json, path); err != nil {
 				t.Error(err)
 			}
 		})
