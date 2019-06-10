@@ -26,6 +26,7 @@ func newCommander() *commander {
 			"scan":   &scanWifi{},
 			"system": &system{},
 			"config": &configure{},
+			"wifi" : &configWifi{},
 		},
 	}
 }

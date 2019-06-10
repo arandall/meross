@@ -30,3 +30,16 @@
     ]
   }
 }
+{
+  "header": {
+    "from": "/appliance/11111111111111111111111111111111/publish",
+    "messageId": "b915b0362e09cb245ffc942c959201f2",
+    "method": "SETACK",
+    "namespace": "Appliance.Config.Wifi",
+    "payloadVersion": 1,
+    "sign": "b348c8e25bfae0eeac4476b5c7508916",
+    "timestamp": 1560142357,
+    "timestampMs": 270
+  },
+  "payload": {}
+}

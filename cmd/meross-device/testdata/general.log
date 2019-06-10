@@ -6,6 +6,7 @@ available commands
 	config
 	scan
 	system
+	wifi
 ERROR: missing command
 
 # meross-device stupid command
@@ -16,6 +17,7 @@ available commands
 	config
 	scan
 	system
+	wifi
 ERROR: Command stupid not found
 
 # meross-device -hello
@@ -26,6 +28,7 @@ available commands
 	config
 	scan
 	system
+	wifi
 ERROR: Command -hello not found
 
 # meross-device help
@@ -36,4 +39,5 @@ available commands
 	config
 	scan
 	system
+	wifi
 

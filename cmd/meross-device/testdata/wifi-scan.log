@@ -20,7 +20,7 @@ ERROR: 5001: sign error
   }
 }
 
-# meross-device scan -url URL <testdata/responses/GETACK-wifi-list.json
+# meross-device scan -url URL <testdata/responses/GETACK-wifi-list+SETACK-config-wifi.json
 // a scan of a device that is not yet configured doesn't require a key.
 test SSID (100%)
 BSSID: 2c-6e-a4-55-c6-47
@@ -29,7 +29,7 @@ test SSID2 (20%)
 BSSID: 4d-23-0e-3c-a2-22
 
 
-# meross-device scan -url URL -raw <testdata/responses/GETACK-wifi-list.json
+# meross-device scan -url URL -raw <testdata/responses/GETACK-wifi-list+SETACK-config-wifi.json
 {
   "wifiList": [
     {

@@ -1,0 +1,23 @@
+# meross-device wifi
+Usage of meross-device wifi:
+  -bssid string
+    	bssid from scan command
+  -key string
+    	key used for signing (optional for some commands)
+  -password string
+    	password to connect to network
+  -url string
+    	url of device configuration endpoint
+ERROR: -url flag must be provided
+
+# meross-device wifi -url URL
+ERROR: -bssid must be set
+
+# meross-device wifi -url URL -bssid 2c-6e-a4-55-c6-47
+ERROR: -password must be set
+
+# meross-device wifi -url URL -bssid 2c-6e-a4-55-c6-47 -password test <testdata/responses/GETACK-wifi-list+SETACK-config-wifi.json
+
+# meross-device wifi -url URL -bssid missing -password test <testdata/responses/GETACK-wifi-list+SETACK-config-wifi.json
+ERROR: BSSID "missing" not found
+

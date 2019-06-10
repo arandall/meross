@@ -45,3 +45,44 @@ func (cmd *scanWifi) Run(c *client) error {
 	}
 	return nil
 }
+
+type configWifi struct {
+	bssid string
+	password string
+}
+
+func (cmd *configWifi) FlagSet(fs *flag.FlagSet) {
+	fs.StringVar(&cmd.bssid, "bssid", "", "bssid from scan command")
+	fs.StringVar(&cmd.password, "password", "", "password to connect to network")
+}
+
+func (cmd *configWifi) Run(c *client) error {
+	if cmd.bssid == "" {
+		return errors.New("-bssid must be set")
+	}
+	if cmd.password == "" {
+		return errors.New("-password must be set")
+	}
+
+	resp, err := c.Do(mdp.WifiScan())
+	if err != nil {
+		return err
+	}
+	var wifi mdp.WifiList
+	if err := resp.Unmarshal(&wifi); err != nil {
+		return err
+	}
+	for _, network := range wifi.List {
+		if network.BSSID != cmd.bssid {
+			continue
+		}
+		network.Password = cmd.password
+		cfg, err := mdp.SetWifiConfig(&network)
+		if err != nil {
+			return err
+		}
+		_, err = c.Do(cfg)
+		return err
+	}
+	return fmt.Errorf("BSSID %q not found", cmd.bssid)
+}
