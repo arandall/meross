@@ -23,11 +23,12 @@ type commander struct {
 func newCommander() *commander {
 	return &commander{
 		cmds: map[string]command{
-			"scan":   &scanWifi{},
-			"system": &system{},
-			"config": &configure{},
-			"wifi" : &configWifi{},
-			"raw": &raw{},
+			"ability": &ability{},
+			"scan":    &scanWifi{},
+			"system":  &system{},
+			"config":  &configure{},
+			"wifi":    &configWifi{},
+			"raw":     &raw{},
 		},
 	}
 }

@@ -1,0 +1,82 @@
+# meross-device ability
+Usage of meross-device ability:
+  -key string
+    	key used for signing (optional for some commands)
+  -raw
+    	show raw json
+  -url string
+    	url of device configuration endpoint
+ERROR: -url flag must be provided
+
+# meross-device ability -url URL <testdata/responses/ERROR-sign-error.json
+// wifi scans will fail if device is provisioned with key and it is not provided.
+ERROR: 5001: sign error
+
+# meross-device ability -url URL -raw <testdata/responses/ERROR-sign-error.json
+{
+  "error": {
+    "code": 5001,
+    "detail": "sign error"
+  }
+}
+
+# meross-device ability -url URL <testdata/responses/GETACK-ability.json
+Payload Version: 1
+Appliance.Config.Key
+Appliance.Config.Trace
+Appliance.Config.Wifi
+Appliance.Config.WifiList
+Appliance.Control.Bind
+Appliance.Control.Consumption
+Appliance.Control.ConsumptionX
+Appliance.Control.Electricity
+Appliance.Control.Timer
+Appliance.Control.Toggle
+Appliance.Control.Trigger
+Appliance.Control.Unbind
+Appliance.Control.Upgrade
+Appliance.System.Ability
+Appliance.System.All
+Appliance.System.Clock
+Appliance.System.DNDMode
+Appliance.System.Debug
+Appliance.System.Firmware
+Appliance.System.Hardware
+Appliance.System.Online
+Appliance.System.Position
+Appliance.System.Report
+Appliance.System.Runtime
+Appliance.System.Time
+
+# meross-device scan -url URL -raw <testdata/responses/GETACK-ability.json
+{
+  "payloadVersion": 1,
+  "ability": {
+    "Appliance.Config.Key": {},
+    "Appliance.Config.WifiList": {},
+    "Appliance.Config.Wifi": {},
+    "Appliance.Config.Trace": {},
+    "Appliance.System.Online": {},
+    "Appliance.System.All": {},
+    "Appliance.System.Hardware": {},
+    "Appliance.System.Firmware": {},
+    "Appliance.System.Time": {},
+    "Appliance.System.Clock": {},
+    "Appliance.System.Debug": {},
+    "Appliance.System.Ability": {},
+    "Appliance.System.Runtime": {},
+    "Appliance.System.Report": {},
+    "Appliance.System.Position": {},
+    "Appliance.System.DNDMode": {},
+    "Appliance.Control.Toggle": {},
+    "Appliance.Control.Timer": {},
+    "Appliance.Control.Trigger": {},
+    "Appliance.Control.Consumption": {},
+    "Appliance.Control.ConsumptionX": {},
+    "Appliance.Control.Electricity": {},
+    "Appliance.Control.Upgrade": {},
+    "Appliance.Control.Bind": {},
+    "Appliance.Control.Unbind": {}
+  }
+}
+

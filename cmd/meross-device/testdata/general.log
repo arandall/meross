@@ -3,6 +3,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	ability
 	config
 	raw
 	scan
@@ -15,6 +16,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	ability
 	config
 	raw
 	scan
@@ -27,6 +29,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	ability
 	config
 	raw
 	scan
@@ -39,6 +42,7 @@ Usage of meross-device:
 	meross-device cmd [opts]
 
 available commands
+	ability
 	config
 	raw
 	scan

@@ -1,0 +1,42 @@
+{
+  "header": {
+    "messageId": "b915b0362e09cb245ffc942c959201f2",
+    "namespace": "Appliance.System.All",
+    "method": "GETACK",
+    "payloadVersion": 1,
+    "from": "/appliance/11111111111111111111111111111111/publish",
+    "timestamp": 1560144444,
+    "timestampMs": 100,
+    "sign": "3641e3c59bea5713f419cf8e609b7f48"
+  },
+  "payload": {
+    "payloadVersion": 1,
+    "ability": {
+      "Appliance.Config.Key": {},
+      "Appliance.Config.WifiList": {},
+      "Appliance.Config.Wifi": {},
+      "Appliance.Config.Trace": {},
+      "Appliance.System.Online": {},
+      "Appliance.System.All": {},
+      "Appliance.System.Hardware": {},
+      "Appliance.System.Firmware": {},
+      "Appliance.System.Time": {},
+      "Appliance.System.Clock": {},
+      "Appliance.System.Debug": {},
+      "Appliance.System.Ability": {},
+      "Appliance.System.Runtime": {},
+      "Appliance.System.Report": {},
+      "Appliance.System.Position": {},
+      "Appliance.System.DNDMode": {},
+      "Appliance.Control.Toggle": {},
+      "Appliance.Control.Timer": {},
+      "Appliance.Control.Trigger": {},
+      "Appliance.Control.Consumption": {},
+      "Appliance.Control.ConsumptionX": {},
+      "Appliance.Control.Electricity": {},
+      "Appliance.Control.Upgrade": {},
+      "Appliance.Control.Bind": {},
+      "Appliance.Control.Unbind": {}
+    }
+  }
+}
