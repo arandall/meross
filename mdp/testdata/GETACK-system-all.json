@@ -1,0 +1,141 @@
+{
+  "header": {
+    "from": "/appliance/11111111111111111111111111111111/publish",
+    "messageId": "b915b0362e09cb245ffc942c959201f2",
+    "method": "GETACK",
+    "namespace": "Appliance.System.All",
+    "payloadVersion": 1,
+    "sign": "3641e3c59bea5713f419cf8e609b7f48",
+    "timestamp": 1560144444,
+    "timestampMs": 100
+  },
+  "payload": {
+    "all": {
+      "system": {
+        "hardware": {
+          "type": "mss310",
+          "subType": "us",
+          "version": "1.0.0",
+          "chipType": "MT7688",
+          "uuid": "11111111111111111111111111111111",
+          "macAddress": "34:29:8f:ff:ff:ff"
+        },
+        "firmware": {
+          "version": "1.1.13",
+          "compileTime": "2018-06-01 09:56:24",
+          "wifiMac": "ff:ff:ff:ff:ff:ff",
+          "innerIp": "10.0.0.21",
+          "server": "iot.meross.com",
+          "port": 2001,
+          "secondServer": "smart.meross.com",
+          "secondPort": 2001,
+          "userId": 12345
+        },
+        "time": {
+          "timestamp": 1560144444,
+          "timezone": "Australia/Sydney",
+          "timeRule": [
+            [
+              1554566400,
+              36000,
+              0
+            ],
+            [
+              1570291200,
+              39600,
+              1
+            ]
+          ]
+        },
+        "online": {
+          "status": 1
+        }
+      },
+      "control": {
+        "toggle": {
+          "onoff": 1,
+          "lmTime": 1560124804
+        },
+        "trigger": [
+          {
+            "id": "abcdefghijklm123",
+            "type": 0,
+            "enable": 1,
+            "alias": "test auto off",
+            "createTime": 1560513139,
+            "rule": {
+              "_if_": {
+                "toggle": {
+                  "onoff": 1,
+                  "lmTime": 0
+                }
+              },
+              "_then_": {
+                "delay": {
+                  "week": 129,
+                  "duration": 69300
+                }
+              },
+              "_do_": {
+                "toggle": {
+                  "onoff": 0,
+                  "lmTime": 0
+                }
+              }
+            }
+          }
+        ],
+        "timer": [
+          {
+            "id": "abcdefghijklm123",
+            "type": 1,
+            "enable": 1,
+            "alias": "on 20:52",
+            "time": 1252,
+            "week": 129,
+            "duration": 0,
+            "createTime": 1560513180,
+            "extend": {
+              "toggle": {
+                "onoff": 1,
+                "lmTime": 0
+              }
+            }
+          },
+          {
+            "id": "bbcdefghijklm123",
+            "type": 1,
+            "enable": 1,
+            "alias": "off 23:58",
+            "time": 1438,
+            "week": 130,
+            "duration": 0,
+            "createTime": 1560513197,
+            "extend": {
+              "toggle": {
+                "onoff": 0,
+                "lmTime": 0
+              }
+            }
+          },
+          {
+            "id": "cbcdefghijklm123",
+            "type": 2,
+            "enable": 1,
+            "alias": "off 23:58",
+            "time": 1418,
+            "week": 131,
+            "duration": 0,
+            "createTime": 1560513197,
+            "extend": {
+              "toggle": {
+                "onoff": 0,
+                "lmTime": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

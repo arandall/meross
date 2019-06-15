@@ -46,7 +46,7 @@ func (cmd *system) Run(c *client) error {
 	if fw.SecondServer != "" {
 		fmt.Fprintf(out, "\tSecondary: mqtts://%s:%d\n\n", fw.SecondServer, fw.SecondPort)
 	}
-	fmt.Fprintf(out, "Device time: %s\n", sys.Info.System.Time.Timestamp.Format(time.RFC1123))
-	fmt.Fprintf(out, "Toggle Status: %t (last changed: %s)\n", sys.Info.Control.Toggle.On, sys.Info.Control.Toggle.LastModified.Format(time.RFC1123))
+	fmt.Fprintf(out, "Device time: %s\n", sys.Info.System.SystemTime.Time.Format(time.RFC1123))
+	fmt.Fprintf(out, "Toggle Status: %d (last changed: %s)\n", sys.Info.Control.Toggle.OnOff, sys.Info.Control.Toggle.LastModified.Format(time.RFC1123))
 	return nil
 }

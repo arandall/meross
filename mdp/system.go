@@ -1,13 +1,34 @@
 package mdp
 
 import (
-	"encoding/json"
-	"errors"
+	"strconv"
 	"time"
 )
 
 const Ability_SystemAll = "Appliance.System.All"
 
+// Time represents a JSON integer in seconds past Epoch.
+type Time struct {
+	time.Time
+}
+
+func (t *Time) String() string {
+	return strconv.FormatInt(t.Unix(), 10)
+}
+
+func (t *Time) MarshalJSON() ([]byte, error) {
+	return []byte(t.String()), nil
+}
+func (t *Time) UnmarshalJSON(b []byte) error {
+	i, err := strconv.ParseInt(string(b), 10, 64)
+	if err != nil {
+		return err
+	}
+	*t = Time{time.Unix(i, 0)}
+	return nil
+}
+
+// SystemAll contains all system attributes.
 type SystemAll struct {
 	Info Info `json:"all"`
 }
@@ -36,104 +57,41 @@ type Firmware struct {
 }
 
 // TimeRule contains information about the timezone and daylight savings rules for the device.
-type TimeRule struct {
-	Timestamp             time.Time
-	GMTOffsetSeconds      int64
-	DaylightSavingsOffset int64
+type TimeRule []int64
+
+// Time that rule takes effect.
+func (tr TimeRule) Time() time.Time {
+	return time.Unix(tr[0], 0)
 }
 
-func (tr *TimeRule) UnmarshalJSON(text []byte) error {
-	aux := []int64{}
-	if err := json.Unmarshal(text, &aux); err != nil {
-		return err
-	}
-	if len(aux) != 3 {
-		return errors.New("invalid length on timerule")
-	}
-	*tr = TimeRule{
-		time.Unix(aux[0], 0),
-		aux[1],
-		aux[2],
-	}
-	return nil
+// GMTOffset in seconds
+func (tr TimeRule) GMTOffset() int64 {
+	return tr[1]
 }
 
-// Time shows the current time of the device
+// DaylightSavingsOffset is the offset to apply for daylight savings.
+func (tr TimeRule) DaylightSavingsOffset() int64 {
+	return tr[2]
+}
+
+// SystemTime contains the current system time.
 type SystemTime struct {
-	Timestamp time.Time      `json:"timestamp"`
-	Timezone  *time.Location `json:"timezone"`
-	TimeRule  []TimeRule     `json:"timeRule"`
+	Time                Time       `json:"timestamp"`
+	Zone                string     `json:"timezone"`
+	DaylightSavingRules []TimeRule `json:"timeRule"`
 }
 
-func (t *SystemTime) UnmarshalJSON(data []byte) error {
-	aux := struct {
-		Time int64      `json:"timestamp"`
-		Loc  string     `json:"timezone"`
-		TR   []TimeRule `json:"timeRule"`
-	}{}
-	if err := json.Unmarshal(data, &aux); err != nil {
-		return err
-	}
-
-	loc, err := time.LoadLocation(aux.Loc)
-	if err != nil {
-		return err
-	}
-
-	*t = SystemTime{
-		time.Unix(aux.Time, 0),
-		loc,
-		aux.TR,
-	}
-	return nil
-}
-
-// Connected indicates that the device is connected to the server.
-type Connected bool
-
-func (s *Connected) UnmarshalJSON(data []byte) error {
-	aux := struct {
-		Status int
-	}{}
-	if err := json.Unmarshal(data, &aux); err != nil {
-		return err
-	}
-	*s = aux.Status == 1
-	return nil
+// Online indicates that the device is connected to the server.
+type Online struct {
+	Status int `json:"status"`
 }
 
 // System is a container for the devices system components.
 type System struct {
-	Hardware          Hardware   `json:"hardware"`
-	Firmware          Firmware   `json:"firmware"`
-	Time              SystemTime `json:"time"`
-	ConnectedToServer Connected  `json:"online"`
-}
-
-// Toggle shows the current state of the switch.
-type Toggle struct {
-	On           bool
-	LastModified time.Time
-}
-
-func (t *Toggle) UnmarshalJSON(data []byte) error {
-	aux := struct {
-		OnOff    int   `json:"onoff"`
-		Modified int64 `json:"lmTime"`
-	}{}
-	if err := json.Unmarshal(data, &aux); err != nil {
-		return err
-	}
-	*t = Toggle{
-		aux.OnOff == 1,
-		time.Unix(aux.Modified, 0),
-	}
-	return nil
-}
-
-// Control wraps the Toggle information.
-type Control struct {
-	Toggle Toggle `json:"toggle"`
+	Hardware   Hardware   `json:"hardware"`
+	Firmware   Firmware   `json:"firmware"`
+	SystemTime SystemTime `json:"time"`
+	Online     Online     `json:"online"`
 }
 
 // Info is a container for the devices information.

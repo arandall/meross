@@ -63,5 +63,5 @@ Firmware: v1.1.13
 MQTT:
 	Primary: mqtts://10.0.0.1:8883
 Device time: Mon, 10 Jun 2019 15:27:24 AEST
-Toggle Status: true (last changed: Mon, 10 Jun 2019 10:00:04 AEST)
+Toggle Status: 1 (last changed: Mon, 10 Jun 2019 10:00:04 AEST)
 
