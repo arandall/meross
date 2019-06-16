@@ -22,7 +22,7 @@ type Toggle struct {
 type TimerType int
 
 const (
-	TimerWeekly TimerType = iota
+	TimerWeekly TimerType = 1
 	TimerOnce             = 2
 )
 

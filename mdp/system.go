@@ -64,14 +64,14 @@ func (tr TimeRule) Time() time.Time {
 	return time.Unix(tr[0], 0)
 }
 
-// GMTOffset in seconds
-func (tr TimeRule) GMTOffset() int64 {
+// UTCOffset in seconds
+func (tr TimeRule) UTCOffset() int64 {
 	return tr[1]
 }
 
-// DaylightSavingsOffset is the offset to apply for daylight savings.
-func (tr TimeRule) DaylightSavingsOffset() int64 {
-	return tr[2]
+// DaylightSavings returns if daylight savings is being applied.
+func (tr TimeRule) DaylightSavings() bool {
+	return tr[2] == 1
 }
 
 // SystemTime contains the current system time.

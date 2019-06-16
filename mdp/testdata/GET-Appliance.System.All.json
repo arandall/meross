@@ -1,12 +1,41 @@
 {
-  "header": {
-    "from": "http://10.10.10.1/config",
-    "messageId": "775835a0b610ed2436090b2b4e929fd4",
-    "method": "GET",
-    "namespace": "Appliance.System.All",
-    "payloadVersion": 1,
-    "sign": "cc05557a79fbfd90cb5a4f08be50df30",
-    "timestamp": 1557596606
-  },
-  "payload": {}
+  "all": {
+    "system": {
+      "hardware": {
+        "type": "mss310",
+        "subType": "us",
+        "version": "1.0.0",
+        "chipType": "MT7688",
+        "uuid": "11111111111111111111111111111111",
+        "macAddress": "34:29:8f:ff:ff:ff"
+      },
+      "firmware": {
+        "version": "1.1.13",
+        "compileTime": "2018-06-01 09:56:24",
+        "wifiMac": "ff:ff:ff:ff:ff:ff",
+        "innerIp": "10.0.0.21",
+        "server": "10.0.0.1",
+        "port": 8883,
+        "secondServer": "",
+        "secondPort": 0,
+        "userId": 12345
+      },
+      "time": {
+        "timestamp": 1560144444,
+        "timezone": "",
+        "timeRule": []
+      },
+      "online": {
+        "status": 1
+      }
+    },
+    "control": {
+      "toggle": {
+        "onoff": 1,
+        "lmTime": 1560124804
+      },
+      "trigger": [],
+      "timer": []
+    }
+  }
 }
