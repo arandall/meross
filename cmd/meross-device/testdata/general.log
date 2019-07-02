@@ -49,3 +49,15 @@ available commands
 	system
 	wifi
 
+# meross-device -help
+Usage of meross-device:
+	meross-device cmd [opts]
+
+available commands
+	ability
+	config
+	raw
+	scan
+	system
+	wifi
+

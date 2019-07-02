@@ -42,7 +42,7 @@ func (c *commander) Run(args ...string) error {
 
 	// Find command
 	cmdName := args[1]
-	if cmdName == "help" {
+	if cmdName == "help" || cmdName == "-help" {
 		c.Usage()
 		return nil
 	}
@@ -59,7 +59,6 @@ func (c *commander) Run(args ...string) error {
 	cmd.FlagSet(fs)
 
 	if err := fs.Parse(args[2:]); err != nil {
-		fs.Usage()
 		return err
 	}
 	if err := c.validate(); err != nil {
