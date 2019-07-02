@@ -61,10 +61,6 @@ func (c *commander) Run(args ...string) error {
 	if err := fs.Parse(args[2:]); err != nil {
 		return err
 	}
-	if err := c.validate(); err != nil {
-		fs.Usage()
-		return err
-	}
 	if err := cmd.Run(c.client()); err != nil {
 		return err
 	}
@@ -91,14 +87,7 @@ func (c *commander) Usage() {
 
 func (c *commander) flagSet(fs *flag.FlagSet) {
 	fs.StringVar(&c.key, "key", "", "key used for signing (optional for some commands)")
-	fs.StringVar(&c.url, "url", "", "url of device configuration endpoint")
-}
-
-func (c *commander) validate() error {
-	if c.url == "" {
-		return errors.New("-url flag must be provided")
-	}
-	return nil
+	fs.StringVar(&c.url, "url", "http://10.10.10.1/config", "url of device configuration endpoint")
 }
 
 func (args *commander) client() *client {

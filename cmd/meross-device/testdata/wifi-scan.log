@@ -1,13 +1,3 @@
-# meross-device scan
-Usage of meross-device scan:
-  -key string
-    	key used for signing (optional for some commands)
-  -raw
-    	show raw json
-  -url string
-    	url of device configuration endpoint
-ERROR: -url flag must be provided
-
 # meross-device scan -url URL <testdata/responses/ERROR-sign-error.json
 // wifi scans will fail if device is provisioned with key and it is not provided.
 ERROR: 5001: sign error

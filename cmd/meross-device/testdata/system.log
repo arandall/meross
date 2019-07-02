@@ -1,13 +1,3 @@
-# meross-device system
-Usage of meross-device system:
-  -key string
-    	key used for signing (optional for some commands)
-  -raw
-    	show raw json
-  -url string
-    	url of device configuration endpoint
-ERROR: -url flag must be provided
-
 # meross-device system -help
 Usage of meross-device system:
   -key string
@@ -15,7 +5,7 @@ Usage of meross-device system:
   -raw
     	show raw json
   -url string
-    	url of device configuration endpoint
+    	url of device configuration endpoint (default "http://10.10.10.1/config")
 ERROR: flag: help requested
 
 # meross-device system -url URL <testdata/responses/ERROR-sign-error.json

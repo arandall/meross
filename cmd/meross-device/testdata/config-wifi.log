@@ -1,15 +1,3 @@
-# meross-device wifi
-Usage of meross-device wifi:
-  -bssid string
-    	bssid from scan command
-  -key string
-    	key used for signing (optional for some commands)
-  -password string
-    	password to connect to network
-  -url string
-    	url of device configuration endpoint
-ERROR: -url flag must be provided
-
 # meross-device wifi -url URL
 ERROR: -bssid must be set
 
