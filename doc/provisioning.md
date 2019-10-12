@@ -36,7 +36,12 @@ Once you have connected to the access point the device performs the following ke
 
 This is done by sending the `GET` and `SET` packets via HTTP to `http://10.10.10.1/config`
 
-The tool `meross-device` can be used to mimic the application and provision your own MQTT server.
+The tool `meross-device` can be used to mimic the application and provision your device to connect to your own MQTT
+server.
+
+**Note:** If you wish to use username/password authentication in MQTT the username used is the MAC address with `:`
+characters and the password is the md5sum of the concatination of the MAC and key. Given that the device doesn't
+contain a trust store I see little value in using authentication.
 
 ```
 # meross-device scan -url URL -raw <testdata/responses/GETACK-wifi-list+SETACK-config-wifi.json
@@ -89,13 +94,20 @@ but not limited to a get of `Appliance.System.All` and a setting of `Appliance.S
 
 Once the device light turns a solid green then it is ready to receive commands via HTTP and/or MQTT.
 
+**Note:** The device I used for my testing required that TLS be used. The device doesn't do any validation on the
+certificate so a self signed certificate is sufficient.
+
+Here is a sample Mosquitto configuration that enables a Meross device to connect to it, in this example I have disabled
+authentication but if you want to enable it don't forget to configure the username and password on your broker as per
+the details from Step 2.
+
 ## Controlling
 
 ![alt text](meross-control.png)
 
 Once a device has completed configuration it will  
 Listen for requests on: `/appliance/<UUID>/subscribe`  
-Publish responses and `PUSH` messages on: `/appliance/<UUID>/subscribe`
+Publish responses and `PUSH` messages on: `/appliance/<UUID>/publish`
 
 Given an MQTT broker is required for the device to be happy during its initial startup I would suspect most would not
 bother using HTTP to control the device. However the same endpoint, used for configuring the device, can be used to 
@@ -105,9 +117,9 @@ The `meross-device` command currently only support HTTP and will send/receive an
 [protocol](protocol.md)
 
 This command is an example of how to send a raw command which is equivalent to the the command 
-`meross-device scan -url URL -raw -key <yourkey>`
+`meross-device ability -url http://DEVICE_IP/config -raw -key <yourkey>`
 ```
-meross-device scan -url URL -raw -key <yourkey>
+echo '{}' | meross-device raw -url URL -namespace Appliance.System.Ability -method GET -key <yourkey>
 {
   "payloadVersion": 1,
   "ability": {
