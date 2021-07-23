@@ -69,7 +69,7 @@ contain a trust store I see little value in using authentication.
 # meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost
 If using auth in your MQTT server use these credentials
 Username: 34:29:8f:ff:ff:ff
-Password: 5ac868a81f2f21b4a87f7d2bb3467cb5
+Password: 1234_5ac868a81f2f21b4a87f7d2bb3467cb5
 
 # meross-device wifi -url URL -bssid 2c-6e-a4-55-c6-47 -password test
 ```

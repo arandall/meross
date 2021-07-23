@@ -70,6 +70,6 @@ func (cmd *configure) Run(c *client) error {
 	}
 	fmt.Fprintln(out, "If using auth in your MQTT server use these credentials")
 	fmt.Fprintf(out, "Username: %s\n", sys.Info.System.Hardware.MAC)
-	fmt.Fprintf(out, "Password: %s\n", mdp.GenerateSignature(sys.Info.System.Hardware.MAC, c.key))
+	fmt.Fprintf(out, "Password: %s_%s\n", config.UserID, mdp.GenerateSignature(sys.Info.System.Hardware.MAC, c.key))
 	return nil
 }

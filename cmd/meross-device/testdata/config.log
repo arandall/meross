@@ -7,12 +7,12 @@ ERROR: -host flag is required
 # meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost <testdata/responses/SETACK-empty+GETACK-system-all.json
 If using auth in your MQTT server use these credentials
 Username: 34:29:8f:ff:ff:ff
-Password: 5ac868a81f2f21b4a87f7d2bb3467cb5
+Password: 1234_5ac868a81f2f21b4a87f7d2bb3467cb5
 
 # meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost -mqtt-port 123 <testdata/responses/SETACK-empty+GETACK-system-all.json
 If using auth in your MQTT server use these credentials
 Username: 34:29:8f:ff:ff:ff
-Password: 5ac868a81f2f21b4a87f7d2bb3467cb5
+Password: 1234_5ac868a81f2f21b4a87f7d2bb3467cb5
 
 # meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost -quiet <testdata/responses/SETACK-empty+GETACK-system-all.json
 
