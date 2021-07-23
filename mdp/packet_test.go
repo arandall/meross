@@ -54,7 +54,7 @@ func TestPacket_EncodingDecoding(t *testing.T) {
 		t    interface{}
 	}{
 		{"ERROR-sign-error.json", &Error{}},
-		{"GET-Appliance.System.All.json", &struct{}{}},
+		{"GET-Appliance.System.All.json", &SystemAll{}},
 		{"GETACK-wifi-scan.json", &WifiList{}},
 		{"GETACK-system-all.json", &SystemAll{}},
 	}
