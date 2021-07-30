@@ -678,9 +678,9 @@ Method: `GETACK`
 | Field                | Description
 |----------------------|---
 | .electricity.channel |
-| .electricity.current | Current being consumed in milli-amps (mA)
+| .electricity.current | Current being consumed in milliamps (mA)
 | .electricity.voltage | Current voltage in deci-volts (dV) (/10 for Volts)
-| .electricity.power   | Current power usage in Watts
+| .electricity.power   | Current power usage in milliwatts (mW)
 
 #### Appliance.Control.Timer
 
