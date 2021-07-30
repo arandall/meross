@@ -1,0 +1,9 @@
+{
+  "domain": "meross",
+  "name": "Meross",
+  "documentation": "https://github.com/arandall/meross-home-assistant",
+  "dependencies": ["mqtt"],
+  "codeowners": ["@arandall"],
+  "requirements": [],
+  "version": "1.0.0"
+}
