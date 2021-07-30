@@ -31,7 +31,7 @@ func (cmd *configure) Run(c *client) error {
 		return errors.New("-user-id flag is required")
 	}
 	if cmd.host == "" {
-		return errors.New("-host flag is required")
+		return errors.New("-mqtt-host flag is required")
 	}
 	if c.key == "" {
 		return errors.New("-key flag is required")

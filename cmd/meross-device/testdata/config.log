@@ -2,7 +2,7 @@
 ERROR: -user-id flag is required
 
 # meross-device config -url URL -user-id 1234 -key testkey
-ERROR: -host flag is required
+ERROR: -mqtt-host flag is required
 
 # meross-device config -url URL -user-id 1234 -key testkey -mqtt-host localhost <testdata/responses/SETACK-empty+GETACK-system-all.json
 If using auth in your MQTT server use these credentials
