@@ -1,40 +1,47 @@
 # Meross Device/Appliance Protocol
 
-This document is to explain the protocol used between Meross IoT appliances and the Meross cloud service.
+This document is to explain the protocol used between Meross IoT appliances, the mobile app and the Meross cloud service.
 
 ## Abilities
 
 A appliance returns what abilities it is able to support. I have so far only had an `mss310` socket and assume there are
 additional abilities.
 
-I hope others will be able to contribute to this list.
+Note: I've only used a very old version `1.1.13` from 2019 and `6.1.10` which is equivilant to `6.1.8` from 2021.
 
-| Ability                                                         | Description
-|-----------------------------------------------------------------|------------
-| [Appliance.Config.Key](#applianceconfigkey)                     | Used to configure MQTT servers
-| [Appliance.Config.Trace](#applianceconfigtrace)                 | Returns WiFi and system details during setup
-| [Appliance.Config.Wifi](#applianceconfigwifi)                   | Configures WiFi network to connect to during setup
-| [Appliance.Config.WifiList](#applianceconfigwifiList)           | Lists aviable Wifi networks
-| [Appliance.Control.Bind](#appliancecontrolbind)                 | Have not observed use.
-| [Appliance.Control.ConsumptionX](#appliancecontrolconsumptionx) | Shows daily power consumption from the last 30 days
-| [Appliance.Control.Electricity](#appliancecontrolelectricity)   | Returns present electricity usage
-| [Appliance.Control.Timer](#appliancecontroltimer)               | Used to GET/SET Timer values
-| [Appliance.Control.Toggle](#appliancecontroltoggle)             | Used Toggle switch on/off
-| [Appliance.Control.Trigger](#appliancecontroltrigger)           | Used to GET/SET Trigger rules
-| [Appliance.Control.Unbind](#appliancecontrolunbind)             | Have not observed use.
-| [Appliance.Control.Upgrade](#appliancecontrolupgrade)           | Upgrade firmware from URL
-| [Appliance.System.Ability](#appliancesystemability)             | List all abilities appliance supports
-| [Appliance.System.All](#appliancesystemall)                     | List all system attributes (includes firmware, hardware, timer, trigger, toogle and online status
-| [Appliance.System.Clock](#appliancesystemclock)                 | Used to request current time
-| [Appliance.System.DNDMode](#appliancesystemdndmode)             | Used to set/unset DNDMode
-| [Appliance.System.Debug](#appliancesystemdebug)                 | Get debug information about appliance OS
-| [Appliance.System.Firmware](#appliancesystemfirmware)           | Get firmware information
-| [Appliance.System.Hardware](#appliancesystemhardware)           | Get hardware information
-| [Appliance.System.Online](#appliancesystemonline)               | Get online status
-| [Appliance.System.Position](#appliancesystemposition)           | Get/Set Position (lat/lng) of appliance
-| [Appliance.System.Report](#appliancesystemreport)               | PUSH data back to server (only seen time reporting)
-| [Appliance.System.Runtime](#appliancesystemruntime)             | Get runtime, only observed WiFi "signal" strength
-| [Appliance.System.Time](#appliancesystemtime)                   | Get/Set timezone and daylight savings rules
+| Ability                                                         | First Seen | Description
+|-----------------------------------------------------------------|------------|------------
+| [Appliance.Config.Key](#applianceconfigkey)                     | 1.1.13     | Used to configure MQTT servers
+| [Appliance.Config.Trace](#applianceconfigtrace)                 | 1.1.13     | Returns WiFi and system details during setup
+| [Appliance.Config.Wifi](#applianceconfigwifi)                   | 1.1.13     | Configures WiFi network to connect to during setup
+| [Appliance.Config.WifiList](#applianceconfigwifiList)           | 1.1.13     | Lists aviable Wifi networks
+| [Appliance.Control.Bind](#appliancecontrolbind)                 | 1.1.13     | Sent by device after setup
+| [Appliance.Control.ConsumptionConfig](#appliancecontrolconsumptionconfig) | 6.1.8 | Consumption ratio, unsure of purpose
+| [Appliance.Control.ConsumptionX](#appliancecontrolconsumptionx) | 1.1.13     | Shows daily power consumption from the last 30 days
+| [Appliance.Control.Electricity](#appliancecontrolelectricity)   | 1.1.13     | Returns present electricity usage
+| [Appliance.Control.Multiple](#appliancecontrolmultiple)         | 6.1.8      | Send multiple Appliance.Control requests in one
+| [Appliance.Control.Timer](#appliancecontroltimer)               | 1.1.13     | GET/SET Timer values
+| [Appliance.Control.TimerX](#appliancecontroltimerx)             | 6.1.8      | GET/SET Timer values on newer firmware
+| [Appliance.Control.Toggle](#appliancecontroltoggle)             | 1.1.13     | Toggle switch on/off
+| [Appliance.Control.ToggleX](#appliancecontroltogglex)           | 6.1.8      | Toggle switch on/off on newer firmware
+| [Appliance.Control.Trigger](#appliancecontroltrigger)           | 1.1.13     | GET/SET Trigger rules
+| [Appliance.Control.TriggerX](#appliancecontroltriggerx)         | 6.1.8      | Trigger rules on newer firmware
+| [Appliance.Control.Unbind](#appliancecontrolunbind)             | 1.1.13     | Have not observed use.
+| [Appliance.Control.Upgrade](#appliancecontrolupgrade)           | 1.1.13     | Upgrade firmware from URL
+| [Appliance.Digest.TimerX](#appliancedigesttimerx)               | 6.1.8      | List configured timers
+| [Appliance.Digest.TriggerX](#appliancedigesttriggerx)           | 6.1.8      | List configured triggers
+| [Appliance.System.Ability](#appliancesystemability)             | 1.1.13     | List all abilities appliance supports
+| [Appliance.System.All](#appliancesystemall)                     | 1.1.13     | List all system attributes (includes firmware, hardware, timer, trigger, toogle and online status
+| [Appliance.System.Clock](#appliancesystemclock)                 | 1.1.13     | Used to request current time
+| [Appliance.System.DNDMode](#appliancesystemdndmode)             | 1.1.13     | Used to set/unset DNDMode
+| [Appliance.System.Debug](#appliancesystemdebug)                 | 1.1.13     | Get debug information about appliance OS
+| [Appliance.System.Firmware](#appliancesystemfirmware)           | 1.1.13     | Get firmware information
+| [Appliance.System.Hardware](#appliancesystemhardware)           | 1.1.13     | Get hardware information
+| [Appliance.System.Online](#appliancesystemonline)               | 1.1.13     | Get online status
+| [Appliance.System.Position](#appliancesystemposition)           | 1.1.13     | Get/Set Position (lat/lng) of appliance
+| [Appliance.System.Report](#appliancesystemreport)               | 1.1.13     | PUSH data back to server (only seen time reporting)
+| [Appliance.System.Runtime](#appliancesystemruntime)             | 1.1.13     | Get runtime, only observed WiFi "signal" strength
+| [Appliance.System.Time](#appliancesystemtime)                   | 1.1.13     | Get/Set timezone and daylight savings rules
 
 ## Packets
 
@@ -233,7 +240,7 @@ Method: `GETACK`
 
 #### Appliance.System.Ability
 
-Gets supported abilities of an appliance.
+Gets supported abilities of an appliance. Abilities may report additional limits.
 
 Method: `GET`
 
@@ -245,31 +252,41 @@ Method: `GETACK`
 
 ```json
 {
-  "Appliance.Config.Key": {},
-  "Appliance.Config.WifiList": {},
-  "Appliance.Config.Wifi": {},
-  "Appliance.Config.Trace": {},
-  "Appliance.System.Online": {},
-  "Appliance.System.All": {},
-  "Appliance.System.Hardware": {},
-  "Appliance.System.Firmware": {},
-  "Appliance.System.Time": {},
-  "Appliance.System.Clock": {},
-  "Appliance.System.Debug": {},
-  "Appliance.System.Ability": {},
-  "Appliance.System.Runtime": {},
-  "Appliance.System.Report": {},
-  "Appliance.System.Position": {},
-  "Appliance.System.DNDMode": {},
-  "Appliance.Control.Toggle": {},
-  "Appliance.Control.Timer": {},
-  "Appliance.Control.Trigger": {},
-  "Appliance.Control.Consumption": {},
-  "Appliance.Control.ConsumptionX": {},
-  "Appliance.Control.Electricity": {},
-  "Appliance.Control.Upgrade": {},
-  "Appliance.Control.Bind": {},
-  "Appliance.Control.Unbind": {}
+  "payloadVersion": 1,
+  "ability": {
+    "Appliance.Config.Key": {},
+    "Appliance.Config.WifiList": {},
+    "Appliance.Config.Wifi": {},
+    "Appliance.Config.Trace": {},
+    "Appliance.System.All": {},
+    "Appliance.System.Hardware": {},
+    "Appliance.System.Firmware": {},
+    "Appliance.System.Debug": {},
+    "Appliance.System.Online": {},
+    "Appliance.System.Time": {},
+    "Appliance.System.Clock": {},
+    "Appliance.System.Ability": {},
+    "Appliance.System.Runtime": {},
+    "Appliance.System.Report": {},
+    "Appliance.System.Position": {},
+    "Appliance.System.DNDMode": {},
+    "Appliance.Control.Multiple": {
+      "maxCmdNum": 5
+    },
+    "Appliance.Control.ToggleX": {},
+    "Appliance.Control.TimerX": {
+      "sunOffsetSupport": 1
+    },
+    "Appliance.Control.TriggerX": {},
+    "Appliance.Control.Bind": {},
+    "Appliance.Control.Unbind": {},
+    "Appliance.Control.Upgrade": {},
+    "Appliance.Control.ConsumptionX": {},
+    "Appliance.Control.Electricity": {},
+    "Appliance.Control.ConsumptionConfig": {},
+    "Appliance.Digest.TriggerX": {},
+    "Appliance.Digest.TimerX": {}
+  }
 }
 ```
 
@@ -610,7 +627,60 @@ Method: `SETACK`
 
 #### Appliance.Control.Bind
 
-Not observed.
+Sent once over MQTT after succesful configuration
+
+Method: `PUSH`
+```yaml
+{
+  "bind": {
+    "bindTime": 1630498742,
+    "time": {
+      "timestamp": 1630498742,
+      "timezone": "Australia/Sydney",
+      "timeRule": [
+        #timerules removed
+      ]
+    },
+    "hardware": {
+      "type": "mss310",
+      "subType": "un",
+      "version": "6.0.0",
+      "chipType": "rtl8710cf",
+      "uuid": "11111111111111111111111111111111",
+      "macAddress": "48:e1:e9:ff:ff:ff"
+    },
+    "firmware": {
+      "version": "6.1.8",
+      "compileTime": "2021/04/07-16:08:36",
+      "wifiMac": "ff:ff:ff:ff:ff:ff",
+      "innerIp": "10.0.0.21",
+      "server": "mqtt-ap-2.meross.com",
+      "port": 443,
+      "userId": 1234
+    }
+  }
+}
+```
+
+#### Appliance.Control.ConsumptionConfig
+
+On startup the device sends and the server returns this with `PUSH` not sure what significance this has. A `SET` restuts in an HTTP error.
+
+Method: `GET` | `PUSH`
+
+```json
+{
+  "config": {
+    "voltageRatio": 188,
+    "electricityRatio": 102
+  }
+}
+```
+
+| Field                    | Description
+|--------------------------|---
+| .config.voltageRatio     | voltageRatio? (In AU set to 188)
+| .config.electricityRatio | ? (In AU set to 102)
 
 #### Appliance.Control.ConsumptionX
 
@@ -682,6 +752,66 @@ Method: `GETACK`
 | .electricity.voltage | Current voltage in deci-volts (dV) (/10 for Volts)
 | .electricity.power   | Current power usage in milliwatts (mW)
 
+#### Appliance.Control.Multiple
+
+Send multiple control packets in one request.
+
+Method is always `SET` even if requests within are `GET`s.
+
+Method: `SET`
+
+```json
+{
+  "multiple": [
+      {
+          "header": {
+              "method": "SET",
+              "namespace": "Appliance.Control.TimerX"
+          },
+          "payload": {
+              "timerx": {
+                  "alias": "test",
+                  "channel": 0,
+                  "count": 0,
+                  "createTime": 1630825097,
+                  "duration": 0,
+                  "enable": 1,
+                  "extend": {
+                      "toggle": {
+                          "channel": 0,
+                          "onoff": 0
+                      }
+                  },
+                  "id": "abc1234",
+                  "sunOffset": 0,
+                  "sunriseTime": 0,
+                  "sunsetTime": 0,
+                  "time": 963,
+                  "type": 1,
+                  "week": 192
+              }
+          }
+      }
+  ]
+}
+```
+
+Method: `SETACK`
+
+```json
+{
+  "multiple": [
+      {
+          "header": {
+              "method": "SETACK",
+              "namespace": "Appliance.Control.TimerX"
+          },
+          "payload": {}
+      }
+  ]
+}
+```
+
 #### Appliance.Control.Timer
 
 On or Off timer.
@@ -735,6 +865,77 @@ Method: `SETACK`
 {}
 ```
 
+#### Appliance.Control.TimerX
+
+On or Off timer.
+
+To get a list of timers on the device use `Appliance.Digest.TimerX`
+
+Method: `GET`
+
+```json
+{
+  "timerx": {
+    "id":"abc1234"
+  }
+}
+```
+
+| Field        | Description
+|--------------|---
+| .timerx[].id | id of timer to get
+
+Method: `SET` | `GETACK`
+
+```json
+{
+  "digest": {
+    "channel": 0,
+    "id": "n1jxtruoknvotm8a",
+    "count": 3
+  },
+  "timerx": {
+    "id": "n1jxtruoknvotm8a",
+    "alias": "test2",
+    "type": 1,
+    "enable": 1,
+    "channel": 0,
+    "createTime": 1630825097,
+    "week": 192,
+    "time": 963,
+    "sunOffset": 0,
+    "duration": 0,
+    "extend": {
+      "toggle": {
+        "onoff": 0,
+        "lmTime": 0
+      }
+    }
+  }
+}
+```
+
+| Field                | Description
+|----------------------|---
+| .digest (`GET` only) | See Appliance.Digest.TriggerX
+| .timerx.id           | unique identifier of timer
+| .timerx.alias        | User string to identify timer
+| .timerx.type         | 1 = weekly, 2 = once
+| .timerx.enable       | Enabled (0 = off, 1 = on)
+| .timerx.channel      | I assume this is to support an appliance with multiple sockets (0 on single socket)
+| .timerx.createTime   | Timestamp timer was created
+| .timerx.week         | 8 bit bitset with MSB always on LSB -> MSB Sun, Mon, ... (eg. Monday 0b10000010)
+| .timerx.time         | Minute of day to fire
+| .timerx.sunOffset    | set to 0 (not sure on usage)
+| .timerx.duration     | set to 0 (not sure on usage, possible time to stay on)
+| .timerx.extend       | [Appliance.Control.Toggle](#appliancecontroltoggle) object without channel
+
+Method: `SETACK`
+
+```json
+{}
+```
+
 #### Appliance.Control.Toggle
 
 Method: `SET`
@@ -771,6 +972,47 @@ Method: `PUSH`
   }
 }
 ```
+
+#### Appliance.Control.ToggleX
+
+Method: `SET`
+
+```json
+{
+  "togglex": {
+    "channel": 0,
+    "onoff": 1
+  }
+}
+```
+
+| Field            | Description
+|------------------|---
+| .togglex.channel | I assume this is to support an appliance with multiple sockets
+| .togglex.onoff   | 0 = off, 1 = on, any other value locks current state
+
+Method: `SETACK`
+
+```json
+{}
+```
+
+When the power state is toggled the following is sent from the appliance.
+
+Method: `PUSH`
+
+```json
+{
+  "togglex": [
+    {
+      "channel": 0,
+      "onoff": 1,
+      "lmTime": 1559375884
+    }
+  ]
+}
+```
+
 
 #### Appliance.Control.Trigger
 
@@ -837,9 +1079,127 @@ Method: `SETACK`
 {}
 ```
 
+#### Appliance.Control.TriggerX
+
+Use Appliance.Digest.TriggerX to get list of triggers
+
+Trigger a toggle on toggle.
+> Eg. After appliance turned on wait 1hr then turn it off.
+
+Method: `GET`
+
+```json
+{
+  "triggerx": {
+    "id": "abc1234"
+  }
+}
+```
+
+| Field        | Description
+|--------------|---
+| .triggerx.id | unique identifier of trigger
+
+Method: `GETACK` / `SET`
+
+```json
+{
+  "digest": {
+    "channel": 0,
+    "id": "abc1234",
+    "count": 1
+  },
+  "triggerx": {
+    "id": "abc1234",
+    "type": 0,
+    "enable": 1,
+    "channel": 0,
+    "alias": "tesy2",
+    "createTime": 1630827106,
+    "rule": {
+      "week": 193,
+      "duration": 900
+    }
+  }
+}
+```
+
+| Field                  | Description
+|------------------------|---
+| .digest (`GET` only)   | See Appliance.Digest.TriggerX
+| .trigger.id            | unique identifier of trigger
+| .trigger.type          | 1 = weekly, 2 = once
+| .trigger.enable        | Enabled (0 = off, 1 = on)
+| .trigger.channel       | I assume this is to support an appliance with multiple sockets
+| .trigger.alias         | User string to identify trigger
+| .trigger.createTime    | Timestamp timer was created
+| .trigger.rule.week     | 8 bit bitset with MSB always on LSB -> MSB Sun, Mon, ... (eg. Mon & Sun 0b10000011)
+| .trigger.rule.duration | Seconds to wait
+
+Method: `SETACK`
+
+```json
+{}
+```
+
 #### Appliance.Control.Unbind
 
 Not observed.
+
+#### Appliance.Digest.TimerX
+
+Method: `GET`
+
+```json
+{}
+```
+
+Method: `GETACK`
+
+```json
+{
+  "digest": [
+    {
+      "channel": 0,
+      "id": "abc1234",
+      "count": 6
+    },
+    {
+      "channel": 0,
+      "id": "def4321",
+      "count": 3
+    },
+    {
+      "channel": 0,
+      "id": "ghi666",
+      "count": 5
+    }
+  ]
+}
+```
+
+#### Appliance.Digest.TriggerX
+
+Method: `GET`
+
+```json
+{}
+```
+
+Method: `GETACK`
+
+```json
+{
+  "digest": [
+    {
+      "channel": 0,
+      "id": "abc1234",
+      "count": 1
+    }
+  ]
+}
+```
+
 
 #### Appliance.Control.Upgrade
 
