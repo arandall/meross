@@ -4,23 +4,37 @@ from typing import Any
 from collections.abc import Mapping
 from homeassistant.components.switch import SwitchEntity, PLATFORM_SCHEMA, ATTR_CURRENT_POWER_W
 from homeassistant.const import STATE_ON, STATE_UNKNOWN, CONF_SWITCHES, CONF_NAME, ATTR_VOLTAGE
-from . import DOMAIN, CONF_KEY, CONF_UUID, CONF_VALIDATE, MQTTDevice, SystemState, ToggleState, PowerUsage
+from .meross import MQTTDevice, SystemState, ToggleState, PowerUsage
 
-ATTR_VERSION = "version"
-ATTR_MAC = "mac_addr"
-ATTR_IP = "ip_addr"
+from .const import (
+    CONF_KEY,
+    CONF_UUID,
+    CONF_VALIDATE,
+    
+    ATTR_VERSION,
+    ATTR_MAC,
+    ATTR_IP,
+    ATTR_CURRENT_A,
+)
 
-ATTR_CURRENT_A = "current_a"
-
-DEVICE_SCHEMA = vol.Schema({
+'''
+    uuid: UUID as reported by meross firmware (required)
+    name: Name to identify appliance/device eg. Living Room Lamp (required)
+    key:  Auth key, if different from platform key (optional)
+'''
+SWITCH_SCHEMA = vol.Schema({
     vol.Required(CONF_UUID): cv.string,
     vol.Required(CONF_NAME): cv.string,
     vol.Optional(CONF_KEY): cv.string,
-    vol.Optional(CONF_VALIDATE, default=True): cv.boolean,
 })
 
+'''
+    switches: [] one or more SWITCH_SCHEMA (required)
+    key:  Auth key to use for all appliances/devices (optional)
+    validate: validate key for incomming requests (default: True)
+'''
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Required(CONF_SWITCHES): cv.ensure_list(DEVICE_SCHEMA),
+    vol.Required(CONF_SWITCHES): cv.ensure_list(SWITCH_SCHEMA),
     vol.Optional(CONF_KEY): cv.string,
     vol.Optional(CONF_VALIDATE, default=True): cv.boolean,
 })
@@ -34,7 +48,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
                 swConfig[CONF_UUID],
                 next(filter(None, [swConfig.get(CONF_KEY), config.get(CONF_KEY)])),
                 swConfig[CONF_NAME],
-                next(filter(None, [swConfig.get(CONF_VALIDATE), config.get(CONF_VALIDATE)])),
+                config.get(CONF_VALIDATE),
             )
         )
     return add_entities(switches, update_before_add=True)
