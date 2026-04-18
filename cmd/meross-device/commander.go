@@ -29,6 +29,7 @@ func newCommander() *commander {
 			"config":  &configure{},
 			"wifi":    &configWifi{},
 			"raw":     &raw{},
+			"genpass": &genpass{},
 		},
 	}
 }

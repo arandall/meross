@@ -10,6 +10,14 @@ scratched my curiosity itch and I will no longer updating this repository.
 I will continue to use Meross devices and I may come back and improve things should something break, or I learn
 something new that is worth sharing. That being said it will likely be fed back into the meross_lan project note here.
 
+edit: 2026-04-18
+My devices are getting a bit old and I find it annoying when I pull a fresh one out of the cupboard, to replace a broken
+one, I have to remeber how to provision it again or dig out my notes. I decided to see if I could use an old 8266 device
+to provision any Meross AP that was visible. Turns out I could and it was farily easy now all I need to do is plug it
+in, start the PlatformIO monitor and job done!
+
+[esp8266-provisioner](esp8266-provisioner/README.md)
+
 Links:
 
   - https://github.com/krahabb/meross_lan

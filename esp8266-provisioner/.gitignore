@@ -1,0 +1,20 @@
+# PlatformIO build artifacts
+.pio/
+.pioenvs/
+.piolibdeps/
+build/
+dist/
+
+# Build outputs
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.exe
+*.elf
+*.hex
+*.bin
+
+# Dependencies (if checked in)
+lib/
