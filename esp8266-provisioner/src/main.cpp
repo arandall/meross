@@ -91,6 +91,9 @@ static DeviceAttempt *s_currentAttempt = nullptr;
 // MAC address of the Meross device currently being provisioned.
 static char s_deviceMAC[18];
 
+// BSSID of the target SSID as reported by the device's WifiList.
+static String s_targetWifiBssid;
+
 // ----------------------------------------------------------------
 // helpers
 // ----------------------------------------------------------------
@@ -260,6 +263,7 @@ void loop() {
             String dec;
             if (mdp_base64_decode(enc, dec) && dec == TARGET_SSID) {
                 found = true;
+                s_targetWifiBssid = entry["bssid"].as<String>();
                 break;
             }
         }
@@ -315,9 +319,10 @@ void loop() {
 
         String payload;
         payload  = "{\"wifi\":{";
-        payload += "\"ssid\":\"";     payload += encSsid; payload += "\",";
-        payload += "\"password\":\""; payload += encPass; payload += "\",";
-        payload += "\"channel\":0,\"encryption\":6,\"cipher\":2}}";
+        payload += "\"ssid\":\"";     payload += encSsid;            payload += "\",";
+        payload += "\"password\":\""; payload += encPass;            payload += "\",";
+        payload += "\"bssid\":\"";    payload += s_targetWifiBssid;  payload += "\",";
+        payload += "\"channel\":3,\"encryption\":6,\"cipher\":3}}";
 
         String pkt = mdp_build_packet("Appliance.Config.Wifi", "SET", payload, "");
         JsonDocument doc;

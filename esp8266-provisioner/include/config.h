@@ -41,7 +41,7 @@
 // ============================================================
 
 // How often (ms) to scan for Meross APs when idle.
-#define SCAN_INTERVAL_MS 30000UL
+#define SCAN_INTERVAL_MS 10000UL
 
 // If a device was last attempted within this window, run
 // Appliance.Config.Trace before continuing (5 minutes).
@@ -58,5 +58,11 @@
 // Fixed IP / URL of every unconfigured Meross device AP.
 #define MEROSS_DEVICE_URL "http://10.10.10.1/config"
 
+// ============================================================
+// Debug logging.
+// Set to 1 to print every HTTP request/response body over Serial.
+// ============================================================
+#define MDP_DEBUG 0
+
 // HTTP client timeout (ms) for requests to the Meross device.
-#define HTTP_TIMEOUT_MS 5000
+#define HTTP_TIMEOUT_MS       30000

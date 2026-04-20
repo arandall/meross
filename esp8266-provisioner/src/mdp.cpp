@@ -106,6 +106,11 @@ bool mdp_post(const String &packetJson, JsonDocument &doc) {
     http.setTimeout(HTTP_TIMEOUT_MS);
     http.addHeader("Content-Type", "application/json; charset=UTF-8");
 
+#if MDP_DEBUG
+    Serial.printf("[mdp] --> POST %s\n", MEROSS_DEVICE_URL);
+    Serial.printf("[mdp] --> %s\n", packetJson.c_str());
+#endif
+
     int code = http.POST(packetJson);
     if (code != 200) {
         Serial.printf("[mdp] HTTP error %d\n", code);
@@ -115,6 +120,11 @@ bool mdp_post(const String &packetJson, JsonDocument &doc) {
 
     String body = http.getString();
     http.end();
+
+#if MDP_DEBUG
+    Serial.printf("[mdp] <-- %d\n", code);
+    Serial.printf("[mdp] <-- %s\n", body.c_str());
+#endif
 
     DeserializationError err = deserializeJson(doc, body);
     if (err) {
