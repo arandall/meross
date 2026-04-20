@@ -1,0 +1,16 @@
+esp8266-provisioner/src/main.cpp
+  h_7d1257cdf5b283 94-96,266,324-325
+esp8266-provisioner/src/mdp.cpp
+  h_7d1257cdf5b283 109-113,124-127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.1",
+  "base_commit_sha": "755c45bbb4f533481314af21949fae2d8603de47",
+  "prompts": {},
+  "humans": {
+    "h_7d1257cdf5b283": {
+      "author": "Allan Randall"
+    }
+  }
+}
